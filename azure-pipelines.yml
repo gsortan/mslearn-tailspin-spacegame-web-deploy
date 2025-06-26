@@ -26,10 +26,18 @@ stages:
       inputs:
         version: '$(dotnetSdkVersion)'
 
-    - task: Npm@1
-      displayName: 'Run npm install'
+    - task: NodeTool@0
+      displayName: 'Install Node.js 14'
       inputs:
-        verbose: false
+        versionSpec: '14.x'
+
+    - script: |
+        npm install -g npm@6
+      displayName: 'Downgrade NPM to v6'
+
+    - script: |
+        npm install --no-optional
+      displayName: 'Run npm install (no optional deps)'
 
     - script: './node_modules/.bin/node-sass $(wwwrootDir) --output $(wwwrootDir)'
       displayName: 'Compile Sass assets'
