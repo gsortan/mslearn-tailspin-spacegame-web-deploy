@@ -12,7 +12,7 @@ stages:
   - job: 'Build'
     displayName: 'Build job'
     pool:
-      name: SecureAgents-ManagedPool
+      name: SecureAgents
       demands:
       - npm
 
@@ -81,7 +81,7 @@ stages:
   jobs:
   - deployment: Deploy
     pool:
-      vmImage: 'ubuntu-22.04'
+      name: SecureAgents-ManagedPool
     environment: dev
     variables:
     - group: Release
@@ -105,7 +105,7 @@ stages:
   jobs:
   - deployment: Deploy
     pool:
-      vmImage: 'ubuntu-22.04'
+      name: SecureAgents-ManagedPool
     environment: staging
     variables:
     - group: 'Release'
